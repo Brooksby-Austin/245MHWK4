@@ -28,9 +28,22 @@ ggplot(data = polls_adjusted, aes(x = end_date, y = approve_fraction, color = pa
   labs(title = "Approval of President's Handling of Covid−19 Pandemic", 
        subtitle = "From 2020 to 2022",
        x = "", y = "") +
-  geom_point(alpha = 0.3) +
+  geom_point(alpha = 0.2) +
   geom_smooth() +
   scale_color_manual(values = c("#008FD5", "#77AB43", "#FF2700")) +
   geom_vline(aes(xintercept = as.Date("2021-01-20")), linetype = "dashed") +
   scale_y_continuous(labels = scales::percent) +
   theme_minimal()
+
+#Part 2
+gtrend = read_csv("gtrend_data_clean.csv")
+
+ggplot(data = gtrend, aes(x = date, y = inflation/10)) + 
+  labs(x = "Date", y = "") +
+  geom_line(color = "red") +
+  geom_line(color = "black", aes(y = value)) +
+  geom_vline(aes(xintercept = as.Date("2020-03-01")), linetype = "dashed") +
+  annotate("text", x=as.Date("2020-04-01"), y=10, label="Covid-19", hjust = 0) + 
+  facet_wrap(~geo)
+
+#Part 3
